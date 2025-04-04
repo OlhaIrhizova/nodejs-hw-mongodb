@@ -22,9 +22,10 @@ const contactShema = new Schema({
         enum:['work', 'home', 'personal'],
         default :'personal',
     }
-});
+},{versionKey: false, timestamps:true});
 
 
 const ContactCollection = model("contact", contactShema );
 
 export default ContactCollection;
+
