@@ -8,15 +8,13 @@ const parseIsFavourite = (value) => {
 };
 
 
-export const parseContactFilterParams = ({type, isFavourite}) => {
-    const parsedType = typeList.includes(type) ? type: undefined;
+export const parseContactFilterParams = ({ contactType, isFavourite }) => {
+    const parsedType = typeList.includes(contactType) ? contactType : undefined;
     const parsedIsFavourite = parseIsFavourite(isFavourite);
 
-     return{
-        contactType : parsedType,
-        isFavourite: parsedIsFavourite,
-     };
-
-};
-
+    return {
+      contactType: parsedType,
+      isFavourite: parsedIsFavourite,
+    };
+  };
 

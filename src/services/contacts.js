@@ -1,3 +1,4 @@
+import { typeList } from "../constants/contacts.js";
 import { sortList } from "../constants/index.js";
 import ContactCollection from "../db/models/contact.js";
 import { calcPaginationData } from "../utils/calcPaginationData.js";
@@ -12,7 +13,8 @@ export const getContacts = async ({
 }) => {
     const skip = (page-1) * perPage;
     const contactQuery = ContactCollection.find();
-    if(filters.contactType){
+    if(filters.contactType && typeList.includes(filters.contactType)){
+        console.log('Applying contactType filter');
         contactQuery.where("contactType").equals(filters.contactType);
     }
     if(filters.isFavourite !== undefined){
