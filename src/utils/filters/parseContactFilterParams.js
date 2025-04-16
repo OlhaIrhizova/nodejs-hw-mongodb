@@ -1,5 +1,6 @@
 import { typeList } from "../../constants/contacts.js";
 
+
 const parseIsFavourite = (value) => {
     if(typeof value !== "string") return;
 
@@ -12,7 +13,7 @@ export const parseContactFilterParams = ({type, isFavourite}) => {
     const parsedIsFavourite = parseIsFavourite(isFavourite);
 
      return{
-        type : parsedType,
+        contactType : parsedType,
         isFavourite: parsedIsFavourite,
      };
 
