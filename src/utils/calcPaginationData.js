@@ -6,6 +6,7 @@ export const calcPaginationData = ({page, perPage, totalItems}) =>{
     return{
         page,
         perPage,
+        totalItems,
         totalPages,
         hasPrevPage,
         hasNextPage };

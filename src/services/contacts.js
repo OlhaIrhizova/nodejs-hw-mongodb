@@ -20,8 +20,9 @@ export const getContacts = async ({
     if(filters.isFavourite !== undefined){
         contactQuery.where("isFavourite").equals(filters.isFavourite);
     }
-    const data = await contactQuery.skip(skip).limit(perPage).sort({[sortBy]: sortOrder});
     const totalItems = await ContactCollection.find().merge(contactQuery).countDocuments();
+    const data = await contactQuery.skip(skip).limit(perPage).sort({[sortBy]: sortOrder});
+
     const paginationData = calcPaginationData({page, perPage, totalItems});
 
     return {data, totalItems,...paginationData};
@@ -37,4 +38,3 @@ export const updateContact = async (_id, payload) => {
 };
 
 export const deleteContact = async (_id) => ContactCollection.findOneAndDelete({_id});
-
