@@ -23,7 +23,15 @@ const contactShema = new Schema({
         type: String,
         enum:typeList,
         default : typeList[0],
+    },
+    userId: {
+        type: Schema.Types.ObjectId,
+        ref: "user",
+        requared: true,
+
     }
+
+
 },{versionKey: false, timestamps:true});
 
 contactShema.post("save", handleSaveError);
