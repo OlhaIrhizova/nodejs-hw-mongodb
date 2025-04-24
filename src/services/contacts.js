@@ -32,13 +32,13 @@ export const getContacts = async ({
     return {data, totalItems,...paginationData};
 };
 
-export const getContactById = (id) => ContactCollection.findOne({_id: id });
+export const getContactById = (id, userId) => ContactCollection.findOne({_id: id, userId });
 
 export const addContact = (payload) => ContactCollection.create(payload);
 
-export const updateContact = async (_id, payload) => {
-    const data = await ContactCollection.findByIdAndUpdate(_id, payload,{new:true, runValidators:true});
+export const updateContact = async (id, payload, userId) => {
+    const data = await ContactCollection.findOneAndUpdate({_id: id, userId }, payload,{new:true, runValidators:true});
     return data;
 };
 
-export const deleteContact = async (_id) => ContactCollection.findOneAndDelete({_id});
+export const deleteContact = async (id, userId) => ContactCollection.findOneAndDelete({_id: id, userId});
