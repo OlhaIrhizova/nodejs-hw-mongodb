@@ -4,6 +4,7 @@ import { parsePaginationParams } from "../utils/parsePaginationParams.js";
 import { parseSortParams } from "../utils/parseSortParams.js";
 import { contactSortFields } from "../db/models/contact.js";
 import { parseContactFilterParams } from "../utils/filters/parseContactFilterParams.js";
+import { saveFileToCloudinary } from "../utils/saveFileToCloudinary.js";
 
 export const getContactsController = async (req, res,) => {
   const paginationParams = parsePaginationParams(req.query);
@@ -40,7 +41,11 @@ export const getContactsController = async (req, res,) => {
 
   export const addContactController = async(req, res) => {
   const {_id: userId} = req.user;
-  const data = await addContact({...req.body, userId});
+  let photo = null;
+  if (req.file) {
+    photo = await saveFileToCloudinary(req.file);
+  }
+  const data = await addContact({...req.body, userId, photo});
 
   res.status(201).json({
     status: 201,
@@ -52,7 +57,11 @@ export const getContactsController = async (req, res,) => {
 export const updateContactController = async(req, res) => {
   const {id} = req.params;
   const userId = req.user._id;
-  const result = await updateContact(id,req.body, userId);
+  let photo = null;
+  if(req.file){
+    photo = await saveFileToCloudinary(req.file);
+  }
+  const result = await updateContact(id,{...req.body, photo}, userId);
 
   if(!result){
     throw createHttpError(404, 'Contact not found');
@@ -78,5 +87,6 @@ export const deleteContactController = async(req, res) => {
   res.status(204).send();
 
 };
+
 
 
