@@ -28,7 +28,9 @@ const contactShema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "user",
         requared: true,
-
+    },
+    photo: {
+        type: String,
     }
 
 
